@@ -1,5 +1,5 @@
     var easing = require("./easing");
-    var Resources = require("1gamlib/resources");
+    var Resources = require("jsgtb/resources");
     var color = "rgba(0, 0, 0, 0.7)",
         width = 324,
         buffer = 80,

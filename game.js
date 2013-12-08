@@ -8,7 +8,7 @@ var game = {
             if(game.state) {
                 game.state.run();
             }
-            raf.requestAnimationFrame.call(window, game.run);
+            raf.call(window, game.run);
         },
         touches: {}
     },

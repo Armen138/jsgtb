@@ -38,7 +38,7 @@ var gamepad = {
                         }
                         lastPad = pad;
                 }
-                raf.requestAnimationFrame.call(window, gamepad.poll);
+                raf.call(window, gamepad.poll);
         },
         A: 0,
         B: 1,

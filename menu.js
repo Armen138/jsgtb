@@ -106,4 +106,4 @@
         };
         return paused;
     };
-    exports.Menu = Menu;
+    module.exports = Menu;

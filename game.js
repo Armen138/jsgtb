@@ -23,7 +23,7 @@ Object.defineProperty(game, "state", {
         if(state) {
             state.fire("clear");
         } else {
-            state.fire("init");
+            newstate.fire("init");
             state = newstate;
         }
     }

@@ -1,4 +1,4 @@
-/*jshint newcap:false, nonew:true */
+/*jshint newcap:false, nonew:true, browser:true, node:true */
 /*global console, define */
 "use strict";
 function audio(files, callback) {
@@ -63,7 +63,7 @@ function audio(files, callback) {
     return rfile;
 }
 
-exports.Racket = {
+module.exports = {
     create: audio
 };
 

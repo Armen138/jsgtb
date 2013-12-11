@@ -22,10 +22,9 @@ Object.defineProperty(game, "state", {
     set: function(newstate) {
         if(state) {
             state.fire("clear");
-        } else {
-            newstate.fire("init");
-            state = newstate;
         }
+        newstate.fire("init");
+        state = newstate;
     }
 });
 

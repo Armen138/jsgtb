@@ -6,7 +6,8 @@ var game = {
         mouse: [],
         run: function() {
             if(game.state) {
-                game.state.run();
+                game.state.fire("update");
+                game.state.fire("draw", Canvas);
             }
             raf.call(window, game.run);
         },
@@ -20,32 +21,28 @@ Object.defineProperty(game, "state", {
     },
     set: function(newstate) {
         if(state) {
-            state.clear(function() {
-                newstate.init();
-                state = newstate;
-            });
+            state.fire("clear");
         } else {
-            newstate.init();
+            state.fire("init");
             state = newstate;
         }
     }
 });
 
 window.addEventListener("keyup", function(e) {
-    if(game.state && game.state.keyup) {
-        game.state.keyup(e.keyCode, {
+    if(game.state) {
+        game.state.fire("keyup", {
+            code: e.keyCode,
             ctrl: e.ctrlKey,
             alt: e.altKey,
             shift: e.shiftKey
         });
     }
-    if(e.keyCode === 27) {
-        game.state = game.paused;
-    }
 });
 window.addEventListener("keydown", function(e) {
-    if(game.state && game.state.keydown) {
-        game.state.keydown(e.keyCode, {
+    if(game.state) {
+        game.state.fire("keydown", {
+            code: e.keyCode,
             ctrl: e.ctrlKey,
             alt: e.altKey,
             shift: e.shiftKey
@@ -54,36 +51,20 @@ window.addEventListener("keydown", function(e) {
 });
 
 window.addEventListener("mousemove", function(e) {
-    if(game.state && game.state.mousemove) {
+    if(game.state) {
         var x = e.clientX - Canvas.position.X;
         var y = e.clientY - Canvas.position.Y;
-        game.state.mousemove({X: x, Y: y});
+        game.state.fire("mousemove", {X: x, Y: y});
     }
 });
-
-// window.addEventListener("contextmenu", function(e) {
-//     if(game.state && game.state.click) {
-//         var x = e.clientX - Canvas.position.X;
-//         var y = e.clientY - Canvas.position.Y;
-//         game.state.click({X: x, Y: y, button: 2});
-//     }
-// });
-
-// window.addEventListener("click", function(e) {
-//     if(game.state && game.state.click) {
-//         var x = e.clientX - Canvas.position.X;
-//         var y = e.clientY - Canvas.position.Y;
-//         game.state.click({X: x, Y: y, button: e.button});
-//     }
-// });
 
 Canvas.element.addEventListener("mousedown", function(e) {
     game.mouse[e.button] = Date.now();
     e.preventDefault();
-    if(game.state && game.state.mousedown) {
+    if(game.state) {
         var x = e.clientX - Canvas.position.X;
         var y = e.clientY - Canvas.position.Y;
-        game.state.mousedown({X: x, Y: y, button: e.button});
+        game.state.fire("mousedown", {X: x, Y: y, button: e.button});
     }
 });
 
@@ -93,17 +74,17 @@ Canvas.element.addEventListener("mouseup", function(e) {
     var x, y;
     console.log(now - game.mouse[e.button]);
     if(now - game.mouse[e.button] < 150) {
-        if(game.state && game.state.click) {
+        if(game.state) {
             x = e.clientX - Canvas.position.X;
             y = e.clientY - Canvas.position.Y;
-            game.state.click({X: x, Y: y, button: e.button});
+            game.state.fire("click", {X: x, Y: y, button: e.button});
         }
     }
     game.mouse[e.button] = null;
-    if(game.state && game.state.mouseup) {
+    if(game.state) {
         x = e.clientX - Canvas.position.X;
         y = e.clientY - Canvas.position.Y;
-        game.state.mouseup({X: x, Y: y, button: e.button});
+        game.state.fire("mouseup", {X: x, Y: y, button: e.button});
     }
 });
 
@@ -114,7 +95,7 @@ window.addEventListener("touchstart", function(e) {
         if(touches.length > 0) {
             var x = (touches[0].pageX | 0);// - Canvas.position.X;
             var y = (touches[0].pageY | 0);// - Canvas.position.Y;
-            game.state.mousedown({X: x, Y: y});
+            game.state.fire("touchstart", touches);
             game.touches[touches[0].identifier] = Date.now();
         }
     }
@@ -128,8 +109,7 @@ window.addEventListener("touchmove", function(e) {
         if(touches.length > 0) {
             var x = (touches[0].pageX | 0);// - Canvas.position.X;
             var y = (touches[0].pageY | 0);// - Canvas.position.Y;
-            game.state.mousemove({X: x, Y: y});
-            //game.touches[touches[0].identifier] = Date.now();
+            game.state.fire("touchmove", touches);
         }
     }
 });
@@ -142,24 +122,10 @@ window.addEventListener("touchend", function(e) {
         if(touches.length > 0) {
             x = (touches[0].pageX | 0);// - Canvas.position.X;
             y = (touches[0].pageY | 0);// - Canvas.position.Y;
-            game.state.mouseup({X: x, Y: y});
+            game.state.fire("touchend", touches);
 
-            //game.touches[touches[0].identifier] = null;
         }
     }
-    console.log(game.touches[touches[0].identifier]);
-    console.log(Date.now() - game.touches[touches[0].identifier]);
-    if(/*game.touches[touches[0].identifier] &&
-        Date.now() - game.touches[touches[0].identifier] < 400 &&*/
-        game.state.click) {
-        //if(touches.length > 0) {
-            x = (touches[0].pageX | 0);// - Canvas.position.X;
-            y = (touches[0].pageY | 0);// - Canvas.position.Y;
-
-            game.state.click({X: x, Y: y});
-        //}
-    }
-
 });
 module.exports = game;
 

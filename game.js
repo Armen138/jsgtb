@@ -1,14 +1,18 @@
 "strict mode";
 var raf = require("./raf");
 var Canvas = require("./canvas");
+var before = 0;
 
 var game = {
         mouse: [],
         run: function() {
+            var now = Date.now();
+            var frameTime = now - before;
             if(game.state) {
-                game.state.fire("update");
-                game.state.fire("draw", Canvas);
+                game.state.fire("update", now);
+                game.state.fire("draw", { canvas: Canvas, now: now, frameTime: frameTime });
             }
+            before = now;
             raf.call(window, game.run);
         },
         touches: {}

@@ -6,3 +6,4 @@ var GameState = function() {
     return gameState;
 };
 
+module.exports = GameState;

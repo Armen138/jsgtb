@@ -9,7 +9,7 @@ var game = {
             var now = Date.now();
             var frameTime = now - before;
             if(game.state) {
-                game.state.fire("update", now);
+                game.state.fire("update", { now:  now, frameTime: frameTime });
                 game.state.fire("draw", { canvas: Canvas, now: now, frameTime: frameTime });
             }
             before = now;

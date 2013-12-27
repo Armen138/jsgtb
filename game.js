@@ -2,6 +2,7 @@
 var raf = require("./raf");
 var Canvas = require("./canvas");
 var before = 0;
+var StateMachine = require("./statemachine");
 
 var game = {
         mouse: [],

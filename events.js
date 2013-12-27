@@ -33,3 +33,4 @@ module.exports = {
         }
     }
 };
+module.exports.attach(module.exports);

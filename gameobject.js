@@ -1,3 +1,4 @@
+'use strict';
 var GameObject = function() {
     var eventList = {};
     var subStates = [];
@@ -13,7 +14,9 @@ var GameObject = function() {
 
     gameObject({
         on: function(ev, f) {
-            if(!eventList[ev]) eventList[ev] = [];
+            if(!eventList[ev]) {
+                eventList[ev] = [];
+            }
             eventList[ev].push(f);
             return gameObject;
         },
@@ -38,6 +41,9 @@ var GameObject = function() {
             }
             return gameObject;
         },
+        clearEventListeners: function() {
+            eventList = {};
+        },
         removeEventListener: function(ev, f) {
             if(!eventList[ev]) {
                 return;
@@ -58,6 +64,7 @@ var GameObject = function() {
             for(var i = 0; i < subStates.length; i++) {
                 if(subStates[i] === state) {
                     subStates.splice(i, 1);
+                    console.log('remove sub-state ' + i);
                     return gameObject;
                 }
             }

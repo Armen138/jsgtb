@@ -1,7 +1,7 @@
 /*jshint node:true */
 'use strict';
-var raf = require('jsgtb/raf');
-var Events = require('jsgtb/events');
+var raf = require('./raf');
+var Events = require('./events');
 
 var buttonStates = [];
 var axisStates = [];

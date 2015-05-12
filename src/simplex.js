@@ -13,13 +13,13 @@
  * Stefan Gustavson. You may use it as you see fit, but
  * attribution is appreciated.
  *
- * 2D version ported to Javascript by Arme138
+ * 2D version ported to Javascript by Armen138
  * original at: http://staffwww.itn.liu.se/~stegu/simplexnoise/SimplexNoise.java
  */
 
  // Inner class to speed upp gradient computations
 // (array access is a lot slower than member access)
-define(function(){
+var Simplex = function(){
   var grad, p, perm, permMod12, F2, G2;
   function reseed(data) {
     grad = [{X: 1, Y: 1},{X: -1, Y: 1},{X: 1, Y: -1},{X: -1, Y: -1},
@@ -97,7 +97,9 @@ define(function(){
       return 70.0 * n;
     }
   };
-});
+};
+
+module.exports = Simplex;
 /*
 function SimplexNoise() {
 

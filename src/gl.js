@@ -1,4 +1,4 @@
-var Canvas = require("./Canvas");
+var Canvas = require("./canvas");
 var gl = {
     width: window.innerWidth,
     height: window.innerHeight,

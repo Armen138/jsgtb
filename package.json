@@ -1,4 +1,13 @@
 {
+    "author": {
+        "email": "armen138@gmail.com",
+        "name": "Armen138",
+        "url": "http://armen138.com"
+    },
+    "license": "MIT",
+    "description": "JavaScript Game Toolbox",
+    "repository": "Armen138/jsgtb",
+    "main": "src/jsgtb.js",
     "name": "jsgtb",
-    "version": "0.0.1"
-} 
+    "version": "0.0.2"
+}

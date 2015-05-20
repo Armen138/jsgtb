@@ -82,7 +82,7 @@ var GameObject = function(object, events) {
         return gameObject(object);
     }
     if(construct) {
-        return create();
+        return create(object);
     } else {
         return function(options) {
             var gameObject = create(object);

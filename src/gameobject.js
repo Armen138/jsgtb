@@ -1,5 +1,5 @@
 'use strict';
-var GameObject = function(object) {
+var GameObject = function(object, events) {
     var construct = (this !== window);
     var eventList = {};
     var subStates = [];
@@ -73,6 +73,11 @@ var GameObject = function(object) {
             return gameObject;
         }
     });
+    if(events) {
+        for(var key in events) {
+            gameObject.on(key, events[key]);
+        }
+    }
     if(construct) {
         return gameObject(object);
     } else {

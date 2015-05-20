@@ -4,10 +4,10 @@
         "name": "Armen138",
         "url": "http://armen138.com"
     },
-    "license": "MIT",
     "description": "JavaScript Game Toolbox",
-    "repository": "Armen138/jsgtb",
+    "license": "MIT",
     "main": "src/jsgtb.js",
     "name": "jsgtb",
-    "version": "0.0.2"
+    "repository": "Armen138/jsgtb",
+    "version": "0.0.3"
 }

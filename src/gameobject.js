@@ -1,5 +1,6 @@
 'use strict';
-var GameObject = function() {
+var GameObject = function(object) {
+    var construct = (this !== window);
     var eventList = {};
     var subStates = [];
     var gameObject = function(object) {
@@ -10,6 +11,7 @@ var GameObject = function() {
             var desc = Object.getOwnPropertyDescriptor(object, prop);
             Object.defineProperty(gameObject, prop, desc);
         }
+        return gameObject;
     };
 
     gameObject({
@@ -71,7 +73,14 @@ var GameObject = function() {
             return gameObject;
         }
     });
-    return gameObject;
+    if(construct) {
+        return gameObject(object);
+    } else {
+        return function(options) {
+            gameObject(options);
+            return gameObject(options);
+        }
+    }
 };
 
 module.exports = GameObject;

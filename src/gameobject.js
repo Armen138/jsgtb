@@ -1,6 +1,6 @@
 'use strict';
 var GameObject = function(object, events) {
-    var construct = (this !== window);
+    var construct = (this instanceof GameObject);
     var create = function(object) {
         var eventList = {};
         var subStates = [];
